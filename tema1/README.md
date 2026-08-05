@@ -42,3 +42,53 @@ ps -p <numero_del_ppid>
 (Reemplaza <numero_del_ppid> con el valor que devolvió tu programa).
 
 Deberías observar que el proceso padre es, generalmente, la shell de comandos que estás utilizando (por ejemplo, bash o zsh).
+
+---
+
+### 2. Para los códigos de Creación de Procesos (fork)
+Copia este bloque si vas a documentar la familia de programas `programa05_fork`:
+
+# Creación de Procesos: La llamada al sistema fork()
+
+Este documento explica la teoría detrás de los programas enfocados en la bifurcación asíncrona de procesos, específicamente la serie de códigos que inician con `programa05_fork_v1.c`.
+
+## Descripción Teórica
+
+La llamada al sistema `fork()` es el mecanismo principal en los sistemas POSIX para la creación de nuevos procesos. Cuando un programa en C llama a `fork()`, el sistema operativo realiza una copia exacta del proceso actual (imagen en memoria, variables, descriptores de archivos, etc.). 
+
+A partir de la instrucción `fork()`, existirán dos procesos ejecutándose de forma **concurrente y asíncrona**:
+1.  **Proceso Padre:** El proceso original que hizo la llamada.
+2.  **Proceso Hijo:** El nuevo proceso creado por el sistema.
+
+### El comportamiento de retorno de fork()
+
+La clave para programar con `fork()` radica en evaluar su valor de retorno dentro de una estructura de control (como un `if/else`), ya que la función devuelve un valor distinto a cada proceso, a pesar de que ambos continúan ejecutando el mismo código a partir del punto de bifurcación:
+
+*   **En el Proceso Padre:** `fork()` devuelve el PID (un número mayor a 0) del proceso hijo recién creado.
+*   **En el Proceso Hijo:** `fork()` devuelve exactamente el valor `0`.
+*   **Error:** Si el sistema falla al crear el proceso, devuelve `-1`.
+
+## Análisis de los Programas (Serie programa05)
+
+### `programa05_fork_v1.c`
+Este código demuestra la ejecución duplicada. Al no evaluar el valor de retorno, tanto el proceso padre como el hijo imprimirán todas las líneas de código posteriores a la bifurcación.
+
+### `programa05_fork_v2.c`
+Este código implementa la evaluación condicional. Podrán observar cómo aislar el comportamiento del proceso padre del comportamiento del proceso hijo, lo cual es la base para diseñar servidores concurrentes de red (donde el padre se queda escuchando conexiones y el hijo atiende a los clientes).
+
+## Instrucciones de Compilación y Ejecución
+
+Para compilar y ejecutar, por ejemplo, la versión 2:
+
+1.  **Compilar:**
+    ```bash
+    gcc programa05_fork_v2.c -o fork_v2
+    ```
+
+2.  **Ejecutar:**
+    ```bash
+    ./fork_v2
+    ```
+
+## Notas para el análisis
+Debido a la naturaleza asíncrona del planificador de procesos del sistema operativo (Scheduler), no está garantizado qué proceso ejecutará sus líneas de código primero. Si corren el programa varias veces, es posible que en algunas ejecuciones el resultado del padre se imprima antes que el del hijo, y en otras ocasiones ocurra al revés.
