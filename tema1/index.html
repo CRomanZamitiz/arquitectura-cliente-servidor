@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 1: Linux y Procesos - Arquitectura Cliente Servidor</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 950px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; }
+        header { background-color: #002b5e; color: white; padding: 2rem; border-radius: 8px; margin-bottom: 2rem; text-align: center; }
+        h1 { margin: 0; font-size: 2.2rem; }
+        h2 { color: #002b5e; border-bottom: 2px solid #002b5e; padding-bottom: 0.5rem; margin-top: 2rem; font-size: 1.5rem; }
+        .course-card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin-bottom: 0.8rem; padding-left: 1.8rem; position: relative; border-bottom: 1px solid #eee; padding-bottom: 0.8rem; }
+        li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        li::before { content: '📄'; position: absolute; left: 0; top: 0; }
+        .icon-code::before { content: '💻'; }
+        .icon-task::before { content: '📝'; }
+        .icon-img::before { content: '🖼️'; }
+        .icon-link::before { content: '🔗'; }
+        a { color: #0056b3; text-decoration: none; font-weight: 500; }
+        a:hover { text-decoration: underline; }
+        .tag { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; margin-left: 0.5rem; color: white; font-weight: bold; }
+        .tag-pdf { background: #dc3545; }
+        .tag-c { background: #007bff; }
+        .tag-sh { background: #28a745; }
+        .description { display: block; font-size: 0.9rem; color: #6c757d; margin-top: 0.3rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tema 1: Linux y Procesos</h1>
+        <p>Arquitectura Cliente Servidor</p>
+    </header>
+
+    <div class="course-card">
+        <h2>📚 Material Teórico y Conceptos</h2>
+        <ul>
+            <li><a href="Tema-01-1.pdf">Introducción a los Sistemas Operativos y GNU Linux (PDF 1)</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="proceso_imagen.pdf">Proceso e Imagen de un proceso</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="Tema-01-2.pdf">Teoría de Procesos (PDF 2)</a> <span class="tag tag-pdf">PDF</span></li>
+            <li class="icon-link"><a href="https://www.hpca.ual.es/~vruiz/docencia/cursos/linux/html/node43.html" target="_blank">¿Qué es la imagen de un proceso? (Referencia Externa)</a></li>
+            <li class="icon-link"><a href="https://www.thegeekstuff.com/2010/10/linux-error-codes/" target="_blank">Los 131 códigos de error de Linux (Referencia Externa)</a></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>📝 Tareas del Tema</h2>
+        <ul>
+            <li class="icon-task"><b>Tarea 1:</b> Investigar qué es un proceso y qué es la imagen de un proceso, en el ámbito de los Sistemas Operativos. Agrega las referencias.</li>
+            <li class="icon-task"><a href="Tarea-02.pdf">Tarea 2: Modificación del bit "setuid" para UIDs diferentes</a> <span class="tag tag-pdf">PDF</span></li>
+            <li class="icon-task"><a href="Tarea-03.pdf">Tarea 3: Ejercicio con fork-exec</a> <span class="tag tag-pdf">PDF</span></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>💻 Códigos: Identificadores, Errores y System()</h2>
+        <ul>
+            <li class="icon-code"><a href="programa01_print-pid.c">programa01_print-pid.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Muestra el PID y el PPID del proceso actual.</span></li>
+            <li class="icon-code"><a href="programa02_ids.c">programa02_ids.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Muestra el UID (User Identifier) real y efectivo del proceso actual.</span></li>
+            <li class="icon-code"><a href="programa03_codigos_sistema.c">programa03_codigos_sistema.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Muestra los códigos de sistema utilizando strerror().</span></li>
+            <li class="icon-img"><a href="1_funcion_system.png">Gráfico: Función system()</a>
+                <span class="description">Muestra gráficamente el comportamiento de la función system().</span></li>
+            <li class="icon-code"><a href="programa04_system_v1.c">programa04_system_v1.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Ejecuta un comando correctamente ("ls -l /").</span></li>
+            <li class="icon-code"><a href="programa04_system_v2.c">programa04_system_v2.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Ejecuta comandos correctos e incorrectos utilizando las macros WIFEXITED y WEXITSTATUS.</span></li>
+            <li class="icon-code"><a href="programa06_error.c">programa06_error.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Uso de la variable errno y la función strerror(errno).</span></li>
+            <li class="icon-code"><a href="programa07_error.c">programa07_error.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Muestra la función perror() para personalizar mensajes de error.</span></li>
+            <li class="icon-code"><a href="programa09">programa09 (Shell Script)</a> <span class="tag tag-sh">SH</span>
+                <span class="description">Muestra las macros de error con su respectivo código de sistema.</span></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>💻 Códigos: Creación de Procesos (Fork)</h2>
+        <ul>
+            <li class="icon-img"><a href="2_funcion_fork_1.png">Gráfico: Función fork() 1</a></li>
+            <li class="icon-code"><a href="programa05_fork_v1.c">programa05_fork_v1.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Crea un proceso hijo idéntico al padre, ejecutando de manera asíncrona.</span></li>
+            <li class="icon-code"><a href="programa05_fork_v2.c">programa05_fork_v2.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Evalúa el valor de retorno de fork() para diferenciar entre proceso padre e hijo.</span></li>
+            <li class="icon-img"><a href="2_funcion_fork_2.png">Gráfico: Función fork() 2</a>
+                <span class="description">Muestra cómo la variable id_hijo difiere entre el padre y el hijo.</span></li>
+            <li class="icon-code"><a href="programa08_child.c">programa08_child.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Evalúa fallos en fork() y utiliza EXIT_FAILURE.</span></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>💻 Códigos: Familia de Funciones Exec</h2>
+        <ul>
+            <li class="icon-img"><a href="3_funcion_exec.png">Gráfico: Familia Exec</a></li>
+            <li class="icon-link"><a href="https://es.wikibrief.org/wiki/Exec_%28system_call%29" target="_blank">Función exec (Llamada al sistema)</a></li>
+            <li class="icon-code"><a href="programa10_execl.c">programa10_execl.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Uso de execl() ejecutando "/bin/ls -l /".</span></li>
+            <li class="icon-code"><a href="programa11_execv.c">programa11_execv.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Uso de execv() ejecutando "/bin/ls -l /".</span></li>
+            <li class="icon-code"><a href="programa12_getenv_user1.c">programa12_getenv_user1.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Obtiene el valor de la variable de entorno USER.</span></li>
+            <li class="icon-code"><a href="programa13_getenv_user2.c">programa13_getenv_user2.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Intenta obtener variables de entorno existentes e inexistentes.</span></li>
+            <li class="icon-code"><a href="programa14_execle1.c">programa14_execle1.c</a> <span class="tag tag-c">C</span></li>
+            <li class="icon-code"><a href="programa15_execle2.c">programa15_execle2.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Personaliza la variable de entorno USER durante la ejecución.</span></li>
+            <li class="icon-code"><a href="programa16_execle3.c">programa16_execle3.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Añade variables de entorno adicionales.</span></li>
+            <li class="icon-code"><a href="programa17_execve1.c">programa17_execve1.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Usa execve() pasando argumentos como vector.</span></li>
+            <li class="icon-code"><a href="programa18_execlp.c">programa18_execlp.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Usa execlp(), tomando la ruta del PATH.</span></li>
+            <li class="icon-code"><a href="programa19_execvp.c">programa19_execvp.c</a> <span class="tag tag-c">C</span></li>
+            <li class="icon-code"><a href="programa20_myecho.c">programa20_myecho.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Imprime los argumentos pasados, similar al comando echo.</span></li>
+            <li class="icon-code"><a href="programa21_execve.c">programa21_execve.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Llama al programa20 mediante execve().</span></li>
+            <li class="icon-code"><a href="programa22_fork-exec.c">programa22_fork-exec.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Usa fork y execvp para reemplazar el proceso hijo.</span></li>
+            <li class="icon-code"><a href="programa23_fork-exec.c">programa23_fork-exec.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Ejecución sin wait(), el proceso padre no espera al hijo.</span></li>
+            <li class="icon-img"><a href="programa23_fork-exec.png">Gráfico: fork-exec</a></li>
+        </ul>
+    </div>
+</body>
+</html>
