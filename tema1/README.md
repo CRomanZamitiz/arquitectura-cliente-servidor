@@ -42,7 +42,7 @@ ps -p <numero_del_ppid>
 (Reemplaza <numero_del_ppid> con el valor que devolvió tu programa).
 
 Deberías observar que el proceso padre es, generalmente, la shell de comandos que estás utilizando (por ejemplo, bash o zsh).
-
+```
 ---
 
 # Creación de Procesos: La llamada al sistema fork()
