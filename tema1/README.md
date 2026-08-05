@@ -33,7 +33,7 @@ Si deseas probar el `programa01_print-pid.c` en tu entorno Linux, sigue estos pa
     ./print_pid
     ```
 
-## Ejercicio Sugerido para Alumnos
+## Ejercicio Sugerido
 
 Al ejecutar el programa, notarás que te imprime el PPID. Para comprobar de qué proceso se trata, ejecuta el siguiente comando en la misma terminal donde corriste el programa:
 
