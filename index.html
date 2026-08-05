@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitectura Cliente Servidor - Asignatura</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 950px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; }
+        header { background-color: #002b5e; color: white; padding: 2rem; border-radius: 8px; margin-bottom: 2rem; text-align: center; }
+        h1 { margin: 0; font-size: 2.2rem; }
+        .subtitle { font-size: 1.2rem; margin-bottom: 1rem; }
+        h2 { color: #002b5e; border-bottom: 2px solid #002b5e; padding-bottom: 0.5rem; margin-top: 2rem; font-size: 1.5rem; }
+        .course-card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin-bottom: 0.8rem; padding-left: 1.8rem; position: relative; border-bottom: 1px solid #eee; padding-bottom: 0.8rem; }
+        li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        li::before { content: '📄'; position: absolute; left: 0; top: 0; }
+        .icon-folder::before { content: '📁'; }
+        .icon-book::before { content: '📘'; }
+        .icon-link::before { content: '🔗'; }
+        a { color: #0056b3; text-decoration: none; font-weight: 500; }
+        a:hover { text-decoration: underline; }
+        .tag { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; margin-left: 0.5rem; color: white; font-weight: bold; }
+        .tag-pdf { background: #dc3545; }
+        .tag-link { background: #17a2b8; }
+        .profile-link { display: inline-block; margin-top: 15px; padding: 10px 20px; background: rgba(255,255,255,0.1); border-radius: 50px; font-size: 0.95rem; }
+        .profile-link a { color: #e0f2fe; text-decoration: none; font-weight: 600; }
+        .profile-link a:hover { color: #ffffff; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Arquitectura Cliente Servidor</h1>
+        <div class="subtitle">Contenido de la Asignatura</div>
+        <div class="profile-link">
+            👨‍🏫 <a href="https://sites.google.com/ingenieria.unam.edu/carlos-alberto-roman-zamitiz/" target="_blank">Perfil Profesional del Mtro. Carlos Alberto Román Zamitiz</a>
+        </div>
+    </header>
+
+    <div class="course-card">
+        <h2>📌 Información General</h2>
+        <ul>
+            <li class="icon-link"><a href="https://www.ingenieria.unam.mx/programas_academicos/licenciatura/computacion_plan2016.php" target="_blank">Plan de estudio de la carrera</a> <span class="tag tag-link">Link</span></li>
+            <li><a href="Plan_de_Estudio_2016.pdf">Plan de estudio de la asignatura</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="dia_01.pdf">Día 1: Objetivo de la asignatura y elementos de evaluación</a> <span class="tag tag-pdf">PDF</span></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>📘 Bibliografía</h2>
+        <ul>
+            <li class="icon-book"><a href="Richard_Stevens-Advanced_Unix_Programming.pdf">Advanced Unix Programming - Richard Stevens</a> <span class="tag tag-pdf">PDF</span></li>
+            <li class="icon-book"><a href="Tanenbaum_Andrew-Sistemas_Operativos_Modernos.pdf">Sistemas Operativos Modernos - Andrew S. Tanenbaum</a> <span class="tag tag-pdf">PDF</span></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>📂 Temario</h2>
+        <ul>
+            <li class="icon-folder"><a href="tema1/">Tema 1: Linux y Procesos</a></li>
+            <li class="icon-folder"><a href="tema2/">Tema 2: Estados de un Proceso</a></li>
+            <li class="icon-folder"><a href="tema3/">Tema 3: Sockets Internet en lenguaje C</a></li>
+            <li class="icon-folder"><a href="tema4/">Tema 4: Sockets en lenguaje Java</a></li>
+            <li class="icon-folder"><a href="tema5/">Tema 5: Sockets cifrados</a></li>
+        </ul>
+    </div>
+</body>
+</html>
