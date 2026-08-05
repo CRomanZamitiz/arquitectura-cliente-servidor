@@ -1,0 +1,1 @@
+grep -hPo '#define\s+(E[A-Z0-9_]+)\s+(\d+)'   /usr/include/asm-generic/errno-base.h /usr/include/asm-generic/errno.h   | awk '{printf "%-20s %s\n", $2, $3}' | sort -n -k2
