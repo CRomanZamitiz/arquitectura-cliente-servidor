@@ -45,9 +45,6 @@ Deberías observar que el proceso padre es, generalmente, la shell de comandos q
 
 ---
 
-### 2. Para los códigos de Creación de Procesos (fork)
-Copia este bloque si vas a documentar la familia de programas `programa05_fork`:
-
 # Creación de Procesos: La llamada al sistema fork()
 
 Este documento explica la teoría detrás de los programas enfocados en la bifurcación asíncrona de procesos, específicamente la serie de códigos que inician con `programa05_fork_v1.c`.
