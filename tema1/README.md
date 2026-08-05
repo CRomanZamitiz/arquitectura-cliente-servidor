@@ -39,3 +39,6 @@ Al ejecutar el programa, notarás que te imprime el PPID. Para comprobar de qué
 
 ```bash
 ps -p <numero_del_ppid>
+(Reemplaza <numero_del_ppid> con el valor que devolvió tu programa).
+
+Deberías observar que el proceso padre es, generalmente, la shell de comandos que estás utilizando (por ejemplo, bash o zsh).
