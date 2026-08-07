@@ -19,11 +19,11 @@ A través de esta terminal virtual, podrán compilar código en C, interactuar c
 * Selecciona la pestaña **`Codespaces`**.
 * Haz clic en el botón **`Create codespace on main`**.
 * Se abrirá una nueva pestaña en tu navegador. El entorno tardará un par de minutos en configurarse la primera vez.
+* Podría mostrarse una ventana emergente que les preguntara si confían en el repositorio. Deben seleccionar el botón "Trust Folder & Continue".
 
 **2. Abrir la Terminal de Linux**
-Una vez que cargue la interfaz (similar a Visual Studio Code):
-* Ve al menú superior y selecciona **`Terminal`** > **`New Terminal`**.
-* Verás aparecer una consola en la parte inferior de la pantalla con el prompt de comandos. ¡Estás dentro de una máquina Linux real!
+Una vez que cargue la interfaz (similar a Visual Studio Code), en la parte inferior se muestra **`Terminal`**.
+* Verás aparecer una consola en la parte inferior de la pantalla con el prompt de comandos. A partir de este momento ya estás dentro de una máquina Linux.
 
 **3. Compilar y Ejecutar un Programa en C (Ejemplo)**
 Vamos a compilar nuestro primer programa del Tema 1. Escribe los siguientes comandos en la terminal, presionando `Enter` después de cada uno:
@@ -31,7 +31,9 @@ Vamos a compilar nuestro primer programa del Tema 1. Escribe los siguientes coma
 *Paso A: Navegar a la carpeta del tema*
 ```bash
 cd tema1
+```
 
 *Paso B: Compilar el código fuente usando GCC*
 ```bash
 gcc programa01_print-pid.c -o prueba_pid
+```
