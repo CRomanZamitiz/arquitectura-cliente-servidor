@@ -47,5 +47,7 @@ gcc programa01_print-pid.c -o prueba_pid
 Observarás la salida del programa directamente en tu terminal.
 
 :warning: **Consideraciones Importantes!**
+
 :point_right: Privilegios de Superusuario: En las prácticas avanzadas donde necesitemos manipular paquetes de red o Raw Sockets, este entorno les permite usar el comando sudo sin restricciones de contraseña.
+
 :point_right: Tiempo de inactividad: Si cierran la pestaña, su Codespace se suspenderá automáticamente para ahorrar recursos. Pueden volver a iniciarlo en cualquier momento desde la misma pestaña verde <> Code de GitHub.
