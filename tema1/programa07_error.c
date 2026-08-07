@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <errno.h>
 
-// Esta version es parecida a programa07_error
+// Esta version es parecida a programa06_error
 // la diferencia es que esta version 
 // llama a la funcion perror( string )
 // observen la linea de perror( "El error es" )
