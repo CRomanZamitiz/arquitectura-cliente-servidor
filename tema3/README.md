@@ -13,7 +13,7 @@ Para probar los programas de este directorio, la terminal de Codespaces (basada 
 ### Opción 1: Pantalla dividida (Recomendada para pares 1 a 1)
 Ideal para probar el primer par de sockets (ej. `programa04_servidor_internet.c` y su respectivo cliente), ya que te permite ver ambos procesos uno al lado del otro.
 
-1. Abre tu primera terminal normalmente yendo al menú superior: **`Terminal > New Terminal`**.
+1. Abre tu primera terminal normalmente: **`Terminal`**.
 2. En la esquina superior derecha del panel de esa terminal, haz clic en el **ícono de panel dividido** (parece un cuadrado partido a la mitad) o presiona las teclas `Ctrl` + `Shift` + `5`.
 3. La pantalla de la terminal se dividirá en dos.
 4. **Ejemplo de uso:** En la mitad izquierda ejecuta el servidor para que se quede "escuchando" en el puerto 4898, y en la mitad derecha lanza al cliente apuntando a la IP local (`127.0.0.1`).
