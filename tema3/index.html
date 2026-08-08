@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 3: Sockets Internet en lenguaje C - Arquitectura Cliente Servidor</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 950px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; }
+        header { background-color: #002b5e; color: white; padding: 2rem; border-radius: 8px; margin-bottom: 2rem; text-align: center; }
+        h1 { margin: 0; font-size: 2.2rem; }
+        h2 { color: #002b5e; border-bottom: 2px solid #002b5e; padding-bottom: 0.5rem; margin-top: 2rem; font-size: 1.5rem; }
+        .course-card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin-bottom: 0.8rem; padding-left: 1.8rem; position: relative; border-bottom: 1px solid #eee; padding-bottom: 0.8rem; }
+        li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        li::before { content: '📄'; position: absolute; left: 0; top: 0; }
+        .icon-code::before { content: '💻'; }
+        .icon-task::before { content: '📝'; }
+        .icon-img::before { content: '🖼️'; }
+        .icon-link::before { content: '🔗'; }
+        a { color: #0056b3; text-decoration: none; font-weight: 500; }
+        a:hover { text-decoration: underline; }
+        .tag { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; margin-left: 0.5rem; color: white; font-weight: bold; }
+        .tag-pdf { background: #dc3545; }
+        .tag-c { background: #007bff; }
+        .description { display: block; font-size: 0.9rem; color: #6c757d; margin-top: 0.3rem; }
+        .note { background-color: #e9ecef; padding: 1rem; border-left: 4px solid #0056b3; border-radius: 4px; margin-bottom: 1rem; font-size: 0.95rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tema 3: Sockets Internet en lenguaje C</h1>
+        <p>Arquitectura Cliente Servidor</p>
+        <p style="text-align: left;">
+            <a href="../index.html" style="color: white; text-decoration: none; font-weight: bold;">&larr; Regresar al inicio</a>
+        </p>
+    </header>
+
+    <div class="course-card">
+        <h2>📚 Fundamentos de Redes y Arquitectura</h2>
+        <ul>
+            <li><a href="Arquitectura_Cliente_Servidor.pdf">¿Por qué es importante la Arquitectura Cliente-Servidor?</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="01_red.pdf">Red de computadoras</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="02_componentes_y_dispositivos_de_red.pdf">Componentes y dispositivos de red</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="03_data_packet.pdf">Data Packet (Paquete de Datos)</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="04_protocolos_TCP_IP_y_puertos.pdf">Protocolos TCP/IP y puertos</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="05_las_cuatro_capas_del_modelo_TCP_IP.pdf">Las 4 capas del modelo TCP/IP</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="06_modelo_TCP_IP_continuacion.pdf">El modelo TCP/IP (Continuación)</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="07_el_modelo_OSI.pdf">El modelo OSI</a> <span class="tag tag-pdf">PDF</span></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>📚 Teoría de Sockets AF_INET</h2>
+        <ul>
+            <li><a href="01_Sockets.pdf">Definición de Socket y familias de sockets</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="02_Sockets_AF_INTERNET.pdf">Sockets Internet (AF_INET): Estructuras y funciones</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="inet_ntoa.pdf">Explicación de la función inet_ntoa()</a> <span class="tag tag-pdf">PDF</span></li>
+            <li class="icon-img"><a href="img_procesos_cliente_servidor_INTERNET.png">Gráfico: Funciones de sockets AF_INET</a></li>
+            <li class="icon-img"><a href="Escalamiento_vertical_y_horizontal.png">Gráfico: Escalamiento vertical y horizontal</a></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>🔗 Contexto Industrial (Lecturas)</h2>
+        <ul>
+            <li class="icon-link"><a href="https://aws.amazon.com/es/about-aws/global-infrastructure/" target="_blank">Infraestructura global de AWS</a></li>
+            <li class="icon-link"><a href="https://www.oracle.com/mx/cloud/public-cloud-regions/" target="_blank">Ubicaciones de regiones de nube pública de Oracle</a></li>
+            <li class="icon-link"><a href="https://submarine-cable-map-2024.telegeography.com/" target="_blank">Mapa de cables submarinos (2024)</a></li>
+            <li class="icon-link"><a href="https://es.wired.com/articulos/umoja-ruta-de-primera-red-de-fibra-optica-de-google-entre-africa-y-australia" target="_blank">Umoja: Red de fibra óptica de Google</a></li>
+            <li class="icon-link"><a href="https://www.xataka.com/streaming/la-compleja-infraestructura-detras-de-netflix-que-pasa-cuando-le-das-al-play" target="_blank">La infraestructura detrás de Netflix</a></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>💻 Códigos: Resolución de Nombres y Cliente HTTP</h2>
+        <ul>
+            <li class="icon-code"><a href="programa01_gethostbyname.c">programa01_gethostbyname.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Uso de gethostbyname() para obtener apuntador a la estructura hostent.</span></li>
+            <li class="icon-code"><a href="programa02_gethostbyaddr.c">programa02_gethostbyaddr.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Uso de gethostbyaddr() para obtener apuntador a la estructura hostent.</span></li>
+            <li class="icon-code"><a href="programa03_ipaddr.c">programa03_ipaddr.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Otra implementación utilizando gethostbyname().</span></li>
+            <li class="icon-code"><a href="cliente_google.c">cliente_google.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Cliente HTTP hacia www.google.com por el puerto 80 (implementa htons).</span></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>💻 Códigos: Primer Servidor y Cliente</h2>
+        <div class="note"><strong>Importante:</strong> Este par de programas representa tu primer esquema Cliente-Servidor. Prueba ejecutarlos abriendo 2 terminales distintas en tu máquina (puedes usar 127.0.0.1 como IP).</div>
+        <ul>
+            <li class="icon-code"><a href="programa04_servidor_internet.c">programa04_servidor_internet.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Servidor AF_INET (Puerto 4898). Al aceptar conexión, envía "Conexion exitosa!".</span></li>
+            <li class="icon-code"><a href="programa04_cliente_internet.c">programa04_cliente_internet.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Cliente AF_INET. Recibe la IP del servidor desde argumentos para realizar la conexión.</span></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>💻 Códigos: Función listen() y Colas TCP</h2>
+        <ul>
+            <li class="icon-code"><a href="ejemplo_listen.c">ejemplo_listen.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Configura listen() con backlog=1 para analizar el encolamiento de múltiples peticiones "nc".</span></li>
+            <li class="icon-link"><a href="https://www.alibabacloud.com/blog/tcp-syn-queue-and-accept-queue-overflow-explained_599203" target="_blank">Artículo: Desbordamiento de la cola TCP SYN y Accept</a></li>
+            <li class="icon-task"><strong>Tarea 4:</strong> Ejecutar peticiones concurrentes con netcat y monitorear los sockets con <code>watch -n 1 "ss -atn 'sport = :4898'"</code>. Toma captura de pantalla de todas tus terminales.</li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>💻 Códigos: Conversación Sincronizada y Servidores Hijos (fork)</h2>
+        <ul>
+            <li class="icon-code"><a href="programa05_servidor_internet.c">programa05_servidor_internet.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Servidor iterativo con conversación que finaliza al recibir "adios".</span></li>
+            <li class="icon-code"><a href="programa05_cliente_internet.c">programa05_cliente_internet.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Cliente que inicia la conversación sincronizada hacia el programa05_servidor.</span></li>
+            <li class="icon-code"><a href="programa06_servidor_internet.c">programa06_servidor_internet.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Servidor concurrente. Utiliza fork() para delegar la atención del cliente a un proceso hijo.</span></li>
+            <li class="icon-code"><a href="programa06_cliente_internet.c">programa06_cliente_internet.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Cliente idéntico al 05, utilizado para interactuar con el servidor concurrente.</span></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>💻 Códigos: Sala de Chat y Multiplexación con select()</h2>
+        <div class="note"><strong>El problema de fork() en chats grupales:</strong> Las memorias de los procesos hijos están aisladas. Para replicar un mensaje a todos los usuarios, la solución es la multiplexación I/O (vigilar múltiples sockets a la vez) utilizando <code>select()</code> y las macros FD_ZERO, FD_SET, FD_CLR y FD_ISSET.</div>
+        <ul>
+            <li class="icon-code"><a href="programa07_servidor_grupal.c">programa07_servidor_grupal.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Implementación de un servidor de sala de chat iterando sobre arreglos de FDs mediante select().</span></li>
+            <li><a href="analisis_programa07.pdf">Análisis profundo del programa07_servidor_grupal.c</a> <span class="tag tag-pdf">PDF</span></li>
+            <li class="icon-link"><a href="https://ipcisco.com/lesson/tcp-handshake/" target="_blank">Análisis del Three/Four way handshake (TCP)</a></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>💻 Códigos: Tamaños de Buffer y Servidor de Archivos (Web)</h2>
+        <ul>
+            <li><a href="Factores_que_limitan_la_cantidad_de_datos_leidos.pdf">Factores que limitan la cantidad de datos leídos</a> <span class="tag tag-pdf">PDF</span></li>
+            <li class="icon-code"><a href="compara_tiempos_buffers.c">compara_tiempos_buffers.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Compara tiempos de ejecución modificando tamaños de buffers.</span></li>
+            <li class="icon-code"><a href="programa08_servidor_PDF.c">programa08_servidor_PDF.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Servidor Web primitivo (Puerto 4898) que despacha un PDF para ser visualizado en el navegador.</span></li>
+            <li><a href="holamundo.pdf">holamundo.pdf</a> <span class="tag tag-pdf">PDF</span> <span class="description">Archivo de prueba para el programa08_servidor_PDF.</span></li>
+            <li><a href="analisis_servidor_PDF.pdf">Análisis del servidor de archivos PDF</a> <span class="tag tag-pdf">PDF</span></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>⚙️ Herramientas Extra y Evaluación</h2>
+        <ul>
+            <li class="icon-code"><a href="sniffer.c">sniffer.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Programa de análisis y captura de paquetes de red.</span></li>
+            <li class="icon-task"><a href="EXAMEN_PARCIAL.pdf"><strong>EXAMEN PARCIAL</strong> (Especificaciones)</a> <span class="tag tag-pdf">PDF</span></li>
+        </ul>
+    </div>
+</body>
+</html>
