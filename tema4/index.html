@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 4: Sockets en lenguaje Java - Arquitectura Cliente Servidor</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 950px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; }
+        header { background-color: #002b5e; color: white; padding: 2rem; border-radius: 8px; margin-bottom: 2rem; text-align: center; }
+        h1 { margin: 0; font-size: 2.2rem; }
+        h2 { color: #002b5e; border-bottom: 2px solid #002b5e; padding-bottom: 0.5rem; margin-top: 2rem; font-size: 1.5rem; }
+        .course-card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin-bottom: 0.8rem; padding-left: 1.8rem; position: relative; border-bottom: 1px solid #eee; padding-bottom: 0.8rem; }
+        li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        li::before { content: '📄'; position: absolute; left: 0; top: 0; }
+        .icon-code::before { content: '💻'; }
+        .icon-task::before { content: '📝'; }
+        .icon-img::before { content: '🖼️'; }
+        .icon-link::before { content: '🔗'; }
+        a { color: #0056b3; text-decoration: none; font-weight: 500; }
+        a:hover { text-decoration: underline; }
+        .tag { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; margin-left: 0.5rem; color: white; font-weight: bold; }
+        .tag-pdf { background: #dc3545; }
+        .tag-java { background: #e76f00; }
+        .description { display: block; font-size: 0.9rem; color: #6c757d; margin-top: 0.3rem; }
+        .note { background-color: #e9ecef; padding: 1rem; border-left: 4px solid #0056b3; border-radius: 4px; margin-bottom: 1rem; font-size: 0.95rem; }
+        .note ul { padding-left: 1rem; }
+        .note li { margin-bottom: 0.3rem; padding-left: 0; border-bottom: none; }
+        .note li::before { content: '•'; position: static; padding-right: 0.5rem; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tema 4: Sockets en lenguaje Java</h1>
+        <p>Arquitectura Cliente Servidor</p>
+        <p style="text-align: left;">
+            <a href="../index.html" style="color: white; text-decoration: none; font-weight: bold;">&larr; Regresar al inicio</a>
+        </p>
+    </header>
+
+    <div class="course-card">
+        <h2>📚 Material Teórico</h2>
+        <ul>
+            <li><a href="Tema_04.pdf">Notas de sockets en lenguaje Java (Clases ServerSocket y Socket)</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="flujos.pdf">Funciones para el manejo de flujos de socket</a> <span class="tag tag-pdf">PDF</span></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>💻 Códigos: Comunicación Básica</h2>
+        <ul>
+            <li class="icon-code"><a href="Servidor01.java">Servidor01.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Uso de <code>ServerSocket</code> y <code>Socket</code> manejando cadenas con <code>readUTF()</code> y <code>writeUTF()</code>.</span></li>
+            <li class="icon-code"><a href="Cliente01.java">Cliente01.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Cliente básico que interactúa con los flujos de entrada y salida del servidor.</span></li>
+            <li class="icon-code"><a href="Servidor02.java">Servidor02.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Lectura dinámica del flujo del teclado utilizando <code>BufferedReader</code>.</span></li>
+            <li class="icon-code"><a href="Cliente02.java">Cliente02.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Lee el mensaje del teclado para enviarlo al servidor y espera su respuesta.</span></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>💻 Códigos: Conversación Cíclica</h2>
+        <ul>
+            <li class="icon-code"><a href="Servidor03.java">Servidor03.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Modificación del Servidor02. Mantiene la conversación en ciclo hasta que el cliente envía "salir".</span></li>
+            <li class="icon-code"><a href="Cliente03.java">Cliente03.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Mantiene la conversación activa hasta escribir la palabra clave "salir".</span></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>💻 Códigos: Servidores Concurrentes (Multithreading)</h2>
+        <div class="note">
+            <strong>Consideraciones de diseño para ServidorMultiThread.java:</strong>
+            <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+                <li>La clase hereda de <code>Thread</code>, por lo que cada instancia es un hilo.</li>
+                <li>La creación de cada objeto hilo se realiza después de la llamada a <code>accept()</code>.</li>
+                <li>La clase posee un método <code>run()</code> con la lógica concurrente.</li>
+                <li><code>ServerSocket</code> y <code>Socket</code> pasan a ser variables al nivel de la clase.</li>
+                <li><code>ServerSocket</code> es estática (mismo valor para todos los hilos).</li>
+                <li><code>Socket</code> es de instancia (valor independiente para cada hilo).</li>
+            </ul>
+        </div>
+        <ul>
+            <li class="icon-code"><a href="ServidorMultiThread.java">ServidorMultiThread.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Crea un hilo independiente por cada cliente que se conecta (Servidor Concurrente).</span></li>
+            <li class="icon-code"><a href="ClienteMultiThread.java">ClienteMultiThread.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Idéntico a Cliente03. La lógica multihilo recae exclusivamente en el servidor.</span></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>💻 Códigos: Multithreading Avanzado (Clases Auxiliares)</h2>
+        <ul>
+            <li class="icon-code"><a href="ServidorMultiThread2.java">ServidorMultiThread2.java</a> <span class="tag tag-java">Java</span></li>
+            <li class="icon-code"><a href="ServerThread.java">ServerThread.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Clase auxiliar para la gestión de hilos del servidor.</span></li>
+            <li class="icon-code"><a href="ClienteMultiThread2.java">ClienteMultiThread2.java</a> <span class="tag tag-java">Java</span></li>
+            <li class="icon-code"><a href="ClientThread.java">ClientThread.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Clase auxiliar para la gestión de hilos del cliente.</span></li>
+        </ul>
+    </div>
+
+    <div class="course-card">
+        <h2>💻 Códigos: Transferencia de Archivos (FTP)</h2>
+        <ul>
+            <li class="icon-code"><a href="ServidorFTP.java">ServidorFTP.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Servidor de transferencia de archivos (texto y binarios) hacia el cliente.</span></li>
+            <li class="icon-code"><a href="ClienteFTP.java">ClienteFTP.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Recibe y guarda el archivo transferido por el servidor.</span></li>
+        </ul>
+    </div>
+</body>
+</html>
