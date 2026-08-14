@@ -25,17 +25,17 @@ Si deseas probar el `programa01_print-pid.c` en tu entorno Linux, sigue estos pa
 
 1.  **Compilar el programa:**
     ```bash
-    gcc programa01_print-pid.c -o print_pid
+    gcc programa01_print-pid.c -o programa01_print-pid
     ```
 
 2.  **Ejecutar el programa:**
     ```bash
-    ./print_pid
+    ./programa01_print-pid
     ```
 
 ## Ejercicio Sugerido
 
-Al ejecutar el programa, notarás que te imprime el PPID. Para comprobar de qué proceso se trata, ejecuta el siguiente comando en la misma terminal donde corriste el programa:
+Al ejecutar el programa, se sugiere que lo ejecutes varias veces para que observes que en cada ejecución, es un proceso nuevo. También notarás que te imprime el PPID, el cual no cambia. Para comprobar de qué proceso se trata, ejecuta el siguiente comando en la misma terminal donde corriste el programa:
 
 ```bash
 ps -p <numero_del_ppid>
