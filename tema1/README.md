@@ -72,6 +72,7 @@ cat /proc/<PID>/maps
 ## 4. Finalización y Limpieza
 Regresa a la **Terminal 1** y presiona `Enter`. Esto reanudará la ejecución hacia la instrucción `free(buffer)`, liberando la memoria dinámica solicitada y retornando 0. 
 El sistema operativo destruirá la imagen en memoria y eliminará el Bloque de Control de Proceso (PCB).
+
 ---
 
 # Identificadores de Proceso: PID y PPID
