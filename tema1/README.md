@@ -1,3 +1,80 @@
+# Práctica de Laboratorio: Anatomía de un Proceso en Linux
+
+## Objetivo de la Práctica
+Comprender la estructura de la imagen de un proceso en memoria (Código, Datos Inicializados, BSS, Montículo y Pila) y diferenciarla del contexto del sistema operativo (Bloque de Control de Proceso). Mediante el uso de comandos de terminal, el estudiante inspeccionará la distribución de memoria de un programa en C en ejecución.
+
+## Requisitos Previos
+* Entorno Linux (puede ser mediante GitHub Codespaces, un servidor CentOS por SSH, o WSL en Windows 10).
+* Compilador GCC instalado.
+* Dos terminales (o sesiones) abiertas de forma concurrente.
+
+## 1. Código Fuente (`servidor.c`)
+Este programa en C representa una estructura clásica. Contiene variables que el sistema operativo mapeará directamente a los 5 segmentos de memoria. El programa se pausa intencionalmente para permitir su inspección dinámica por parte de los alumnos.
+
+```c
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+
+int puerto = 80;               /* Segmento Data: Variable global inicializada */
+int conexiones_pendientes;     /* Segmento BSS: Variable global no inicializada (inicia en 0) */
+
+int main(int argc, char *argv[]) {
+    int socket_fd = 5;         /* Pila (Stack): Variable local */
+    char *buffer = malloc(1024); /* Montículo (Heap): Asignación dinámica de memoria */
+    
+    /* 5. Segmento de Código (Text): Las instrucciones compiladas */
+    printf("Proceso en ejecución con PID: %d\n", getpid());
+    printf("Ve a tu segunda terminal y ejecuta pmap. Luego presiona Enter aquí para terminar...\n");
+    
+    /* Pausa la ejecución en espera de entrada estándar */
+    getchar(); 
+    
+    free(buffer);
+    return 0;
+}
+```
+
+## 2. Ejecución e Inspección (Terminal 1)
+1. Compila el código fuente asegurando que el entorno genere el binario localmente:
+   ```bash
+   gcc servidor.c -o servidor
+   ```
+2. Ejecuta el binario generado:
+   ```bash
+   ./servidor
+   ```
+3. El programa se detendrá. **Toma nota del PID** (Identificador de Proceso) que se muestra en pantalla.
+
+## 3. Análisis Dinámico (Terminal 2)
+Sin cerrar la Terminal 1, abre una segunda terminal y ejecuta los siguientes comandos. (Sustituye `<PID>` por el número obtenido en el paso anterior).
+
+### A. Análisis Estático con `size`
+Muestra el tamaño exacto en bytes de los segmentos estáticos del archivo binario, independientemente de su ejecución.
+```bash
+size servidor
+```
+*Identifica la distribución de los segmentos `text`, `data` y `bss`.*
+
+### B. Mapa de Memoria Dinámica con `pmap`
+Consulta las estructuras del kernel para imprimir el mapa completo de la memoria virtual del proceso activo.
+```bash
+pmap <PID>
+```
+*Localiza las direcciones de memoria donde el sistema ubicó específicamente las etiquetas `[ heap ]` (Montículo) y `[ stack ]` (Pila).*
+
+### C. Metadatos del Kernel en `/proc`
+Despliega la información pura del bloque de control del proceso, incluyendo direcciones hexadecimales, permisos (ej. `r-xp` para lectura y ejecución) y rutas de bibliotecas cargadas dinámicamente (`libc`).
+```bash
+cat /proc/<PID>/maps
+```
+
+## 4. Finalización y Limpieza
+Regresa a la **Terminal 1** y presiona `Enter`. Esto reanudará la ejecución hacia la instrucción `free(buffer)`, liberando la memoria dinámica solicitada y retornando 0. 
+El sistema operativo destruirá la imagen en memoria y eliminará el Bloque de Control de Proceso (PCB).
+```
+---
+
 # Identificadores de Proceso: PID y PPID
 
 Este archivo forma parte del material de **Arquitectura Cliente Servidor**. A continuación se explica la teoría detrás de la identificación de procesos en el núcleo (kernel) de Linux, centrándose en el `programa01_print-pid.c`.
