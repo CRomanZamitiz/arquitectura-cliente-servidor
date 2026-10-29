@@ -39,7 +39,7 @@ int main() {
     }
 
     printf(">>> SNIFFER ACTIVO: Escuchando tramas Ethernet en la red...\n");
-    printf(">>> Esperando trafico TCP en el puerto 8080...\n");
+    printf(">>> Esperando trafico TCP en el puerto 4898...\n");
 
     // Bucle infinito para escuchar paquetes continuamente
     while (1) {
@@ -90,9 +90,9 @@ int main() {
                 // Saltamos la cabecera Ethernet (14) + la cabecera IP (ej. 20) para llegar a TCP
                 struct tcphdr *tcph = (struct tcphdr *)(buffer + sizeof(struct ethhdr) + iphdrlen);
 
-                // Filtramos para capturar SOLO la comunicacion de nuestro laboratorio (puerto 8080).
+                // Filtramos para capturar SOLO la comunicacion de nuestro laboratorio (puerto 4898).
                 // Revisamos tanto el puerto de destino (peticion) como el origen (respuesta).
-                if (ntohs(tcph->dest) == 8080 || ntohs(tcph->source) == 8080) {
+                if (ntohs(tcph->dest) == 4898 || ntohs(tcph->source) == 4898) {
                     
                     /*
                      * PASO 6: CALCULO DEL PAYLOAD (LOS DATOS REALES)
