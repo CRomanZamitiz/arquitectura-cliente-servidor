@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-// Librerías de OpenSSL necesarias para la criptografía
+// Librerias de OpenSSL necesarias para la criptografia
 #include <openssl/evp.h>
 #include <openssl/rand.h>
 
