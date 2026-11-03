@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Criptografía Simétrica en C con OpenSSL - UNAM FI</title>
+<style>
+  :root {
+    --azul-unam: #002B7A;
+    --azul-oscuro: #001A4D;
+    --oro-unam: #D59F0F;
+    --oro-claro: #F4C430;
+    --blanco: #FFFFFF;
+    --gris-fondo: #F4F6F9;
+    --texto: #1E293B;
+    --codigo-bg: #0F172A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: var(--azul-oscuro);
+    color: var(--texto);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+  .slide {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    background: var(--gris-fondo);
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .slide.active { display: flex; }
+  
+  /* Encabezado Institucional */
+  .header {
+    background: linear-gradient(90deg, var(--azul-unam) 0%, var(--azul-oscuro) 100%);
+    color: var(--blanco);
+    padding: 22px 50px;
+    border-bottom: 8px solid var(--oro-unam);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header h2 { font-size: 2.1rem; font-weight: 700; letter-spacing: 0.5px; }
+  .header .badge {
+    background: var(--oro-unam);
+    color: var(--azul-oscuro);
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 0.95rem;
+  }
+
+  /* Contenido central */
+  .content {
+    flex: 1;
+    padding: 35px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 22px;
+    overflow-y: auto;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 35px;
+    align-items: center;
+  }
+  ul { list-style: none; }
+  ul li {
+    font-size: 1.45rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    padding-left: 28px;
+    position: relative;
+  }
+  ul li::before {
+    content: "■";
+    color: var(--oro-unam);
+    position: absolute;
+    left: 0;
+    top: 2px;
+  }
+  pre {
+    background: var(--codigo-bg);
+    color: #E2E8F0;
+    padding: 22px 28px;
+    border-radius: 10px;
+    border-left: 6px solid var(--oro-unam);
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 1.25rem;
+    line-height: 1.55;
+    overflow-x: auto;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+  .hl-gold { color: var(--oro-claro); font-weight: bold; }
+  .hl-cyan { color: #38BDF8; }
+  .hl-green { color: #4ADE80; }
+
+  .diagram-box {
+    background: var(--blanco);
+    border: 2px solid var(--azul-unam);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 6px 16px rgba(0,43,122,0.08);
+  }
+
+  /* Portada */
+  .cover {
+    background: radial-gradient(circle at top right, #003B99, var(--azul-oscuro));
+    color: var(--blanco);
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 90px;
+  }
+  .cover h1 { font-size: 3.6rem; margin-bottom: 15px; line-height: 1.15; }
+  .cover h3 { font-size: 2rem; color: var(--oro-claro); margin-bottom: 30px; font-weight: 500; }
+  .cover .divider { width: 100%; height: 8px; background: var(--oro-unam); margin: 25px 0; border-radius: 4px; }
+  .cover p { font-size: 1.45rem; line-height: 1.7; color: #E2E8F0; }
+
+  /* Pie de página y Controles */
+  .footer {
+    background: var(--blanco);
+    padding: 12px 50px;
+    border-top: 2px solid #E2E8F0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    color: var(--azul-unam);
+    font-weight: 600;
+  }
+  .controls button {
+    background: var(--azul-unam);
+    color: var(--blanco);
+    border: 2px solid var(--oro-unam);
+    padding: 6px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95rem;
+    margin-left: 8px;
+  }
+  .controls button:hover { background: var(--oro-unam); color: var(--azul-oscuro); }
+</style>
+</head>
+<body>
+
+<!-- DIAPOSITIVA 1: PORTADA -->
+<div class="slide cover active">
+  <div style="font-size:1.3rem; font-weight:bold; color:var(--oro-claro); letter-spacing:2px; margin-bottom:10px;">
+    UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO • FACULTAD DE INGENIERÍA
+  </div>
+  <h1>Criptografía Simétrica en C con OpenSSL</h1>
+  <h3>Implementación Práctica de AES-256-CBC (<code>cripto.c</code>)</h3>
+  <div class="divider"></div>
+  <p>
+    <strong>Asignaturas:</strong> Arquitectura Cliente-Servidor | Redes de Computadoras y Ciberseguridad<br>
+    <strong>Profesor:</strong> Ing. Carlos Alberto Román Zamitiz
+  </p>
+  <div style="margin-top:40px; font-size:1rem; color:#94A3B8;">
+    Usa las flechas del teclado [←] [→] o los botones inferiores para navegar • Presiona [F11] para pantalla completa
+  </div>
+</div>
+
+<!-- DIAPOSITIVA 2: ANTECEDENTES -->
+<div class="slide">
+  <div class="header">
+    <h2>1. El Problema del Texto Plano en Cliente-Servidor</h2>
+    <span class="badge">Antecedentes (Min 00-10)</span>
+  </div>
+  <div class="content">
+    <ul>
+      <li>Las llamadas al sistema de sockets (<code>send()</code>, <code>recv()</code>, <code>write()</code>, <code>read()</code>) transmiten arreglos de bytes directamente desde la RAM hacia la pila TCP/IP sin protección nativa.</li>
+      <li>Vulnerabilidad crítica frente al modelo <strong>UIT-T X.800</strong>:
+        <br>• <strong>Intercepción (Confidencialidad):</strong> Captura de tráfico mediante <em>Sniffers</em> en modo promiscuo.
+        <br>• <strong>Modificación (Integridad):</strong> Alteración de bytes en tránsito por un atacante <em>Man-in-the-Middle</em>.</li>
+      <li><strong>Objetivo de la sesión:</strong> Transformar el buffer en memoria local (<code>textoOriginal</code> → <code>textoEncriptado</code>) y resguardar la llave antes de acoplarlo a un par de programas Cliente-Servidor.</li>
+    </ul>
+    <pre><span class="hl-cyan">Memoria RAM (Usuario)</span>          <span class="hl-gold">Motor Criptográfico (OpenSSL)</span>          <span class="hl-green">Futura Salida a Red</span>
+unsigned char *textoOriginal  ───►  [ Cifrado AES-256-CBC ]  ───►  unsigned char textoEncriptado[]</pre>
+  </div>
+  <div class="footer">
+    <span>UNAM - Facultad de Ingeniería | Prof. Ing. Carlos Alberto Román Zamitiz</span>
+    <div class="controls"><span class="page-num"></span><button onclick="prevSlide()">◀ Anterior</button><button onclick="nextSlide()">Siguiente ▶</button></div>
+  </div>
+</div>
+
+<!-- DIAPOSITIVA 3: AES-256 -->
+<div class="slide">
+  <div class="header">
+    <h2>2. Criptografía Simétrica: Estándar AES-256 (FIPS 197)</h2>
+    <span class="badge">Teoría Criptográfica (Min 10-25)</span>
+  </div>
+  <div class="content grid-2">
+    <div>
+      <ul>
+        <li>Emplea <strong>la misma llave criptográfica (K)</strong> tanto para cifrar como para descifrar.</li>
+        <li><strong>Tamaño de bloque fijo:</strong> AES opera sobre bloques exactos de <strong>128 bits (16 bytes)</strong>.</li>
+        <li><strong>Longitud de llave en AES-256:</strong> Requiere <strong>256 bits (32 bytes)</strong> y ejecuta 14 rondas de transformación matemática.</li>
+        <li>En C, un <code>unsigned char</code> mide exactamente <strong>1 byte (8 bits)</strong> sin signo, ideal para almacenar bytes binarios puros.</li>
+      </ul>
+    </div>
+    <div class="diagram-box">
+      <h3 style="color:var(--azul-unam); margin-bottom:12px;">Dimensionamiento en Memoria RAM</h3>
+      <svg viewBox="0 0 420 210" width="100%">
+        <rect x="15" y="15" width="390" height="75" rx="8" fill="#EBF3FF" stroke="#002B7A" stroke-width="2.5"/>
+        <text x="210" y="45" font-size="16" font-weight="bold" fill="#002B7A" text-anchor="middle">unsigned char llave[32];</text>
+        <text x="210" y="72" font-size="14" fill="#D59F0F" font-weight="bold" text-anchor="middle">32 bytes × 8 bits = 256 bits (Llave Secreta AES-256)</text>
+
+        <rect x="15" y="115" width="390" height="75" rx="8" fill="#FFFBEB" stroke="#D59F0F" stroke-width="2.5"/>
+        <text x="210" y="145" font-size="16" font-weight="bold" fill="#002B7A" text-anchor="middle">unsigned char iv[16];</text>
+        <text x="210" y="172" font-size="14" fill="#334155" font-weight="bold" text-anchor="middle">16 bytes × 8 bits = 128 bits (Vector de Inicialización)</text>
+      </svg>
+    </div>
+  </div>
+  <div class="footer">
+    <span>UNAM - Facultad de Ingeniería | Prof. Ing. Carlos Alberto Román Zamitiz</span>
+    <div class="controls"><span class="page-num"></span><button onclick="prevSlide()">◀ Anterior</button><button onclick="nextSlide()">Siguiente ▶</button></div>
+  </div>
+</div>
+
+<!-- DIAPOSITIVA 4: MODO CBC Y PADDING -->
+<div class="slide">
+  <div class="header">
+    <h2>3. Modo CBC, Vector de Inicialización (IV) y Padding</h2>
+    <span class="badge">Teoría Criptográfica (Min 10-25)</span>
+  </div>
+  <div class="content">
+    <ul>
+      <li><strong>Modo CBC (Cipher Block Chaining):</strong> Aplica una operación lógica <code>XOR (⊕)</code> entre cada bloque de texto plano y el bloque cifrado anterior para eliminar patrones repetitivos.</li>
+      <li><strong>Vector de Inicialización (<code>iv[16]</code>):</strong> Bloque aleatorio de 16 bytes que se opera con <code>XOR</code> contra el primer bloque de texto plano.</li>
+      <li><strong>Relleno (Padding PKCS#7):</strong> Completa el último bloque si el mensaje no es múltiplo de 16 bytes. Por ello sumamos <code>EVP_MAX_BLOCK_LENGTH</code> al tamaño del arreglo <code>textoEncriptado</code>.</li>
+    </ul>
+    <div class="diagram-box" style="padding:12px;">
+      <svg viewBox="0 0 850 155" width="95%">
+        <!-- Bloque 1 -->
+        <rect x="10" y="15" width="140" height="42" rx="6" fill="#002B7A"/><text x="80" y="41" fill="#FFF" font-size="13" font-weight="bold" text-anchor="middle">Texto Plano (16B)</text>
+        <line x1="80" y1="57" x2="80" y2="85" stroke="#002B7A" stroke-width="2.5"/>
+        <circle cx="80" cy="100" r="15" fill="#D59F0F"/><text x="80" y="105" fill="#001A4D" font-size="13" font-weight="bold" text-anchor="middle">XOR</text>
+        <rect x="190" y="80" width="110" height="40" rx="6" fill="#FFF" stroke="#D59F0F" stroke-width="2.5"/><text x="245" y="105" fill="#002B7A" font-size="13" font-weight="bold" text-anchor="middle">IV (16 Bytes)</text>
+        <line x1="190" y1="100" x2="95" y2="100" stroke="#D59F0F" stroke-width="2.5"/>
+        <line x1="80" y1="115" x2="80" y2="140" stroke="#002B7A" stroke-width="2.5"/>
+        <line x1="80" y1="140" x2="360" y2="140" stroke="#002B7A" stroke-width="2.5"/>
+        <rect x="360" y="65" width="150" height="75" rx="8" fill="#002B7A" stroke="#D59F0F" stroke-width="3"/>
+        <text x="435" y="98" fill="#FFF" font-size="14" font-weight="bold" text-anchor="middle">Motor AES-256</text>
+        <text x="435" y="120" fill="#F4C430" font-size="12" text-anchor="middle">Llave (32 Bytes)</text>
+        <line x1="510" y1="102" x2="585" y2="102" stroke="#002B7A" stroke-width="2.5"/>
+        <rect x="585" y="75" width="245" height="55" rx="8" fill="#0F172A" stroke="#4ADE80" stroke-width="2.5"/>
+        <text x="707" y="100" fill="#4ADE80" font-size="14" font-weight="bold" text-anchor="middle">textoEncriptado[]</text>
+        <text x="707" y="119" fill="#E2E8F0" font-size="11" text-anchor="middle">(Encadena al siguiente XOR + Padding)</text>
+      </svg>
+    </div>
+  </div>
+  <div class="footer">
+    <span>UNAM - Facultad de Ingeniería | Prof. Ing. Carlos Alberto Román Zamitiz</span>
+    <div class="controls"><span class="page-num"></span><button onclick="prevSlide()">◀ Anterior</button><button onclick="nextSlide()">Siguiente ▶</button></div>
+  </div>
+</div>
+
+<!-- DIAPOSITIVA 5: LIBRERIAS OPENSSL -->
+<div class="slide">
+  <div class="header">
+    <h2>4. Bibliotecas OpenSSL en C y la Interfaz EVP</h2>
+    <span class="badge">Arquitectura OpenSSL (Min 25-35)</span>
+  </div>
+  <div class="content">
+    <ul>
+      <li>OpenSSL en sistemas Linux se compone de dos bibliotecas dinámicas: <code>libssl</code> (protocolos TLS/DTLS) y <strong><code>libcrypto</code></strong> (algoritmos criptográficos puros, CSPRNG y certificados).</li>
+      <li>Cabeceras utilizadas en <code>cripto.c</code>:
+        <br>• <code>&lt;openssl/evp.h&gt;</code>: Interfaz de alto nivel <strong>EVP (<em>Envelope</em>)</strong> para cifrado y descifrado.
+        <br>• <code>&lt;openssl/rand.h&gt;</code>: Generador de números pseudoaleatorios criptográficamente seguro.</li>
+      <li><strong>Ventaja de usar <code>EVP</code>:</strong> Sustituye a las APIs obsoletas de bajo nivel y activa automáticamente las instrucciones de aceleración por hardware del procesador (<strong>AES-NI</strong>).</li>
+    </ul>
+    <pre><span class="hl-gold">// Librerías de OpenSSL necesarias para la criptografía en cripto.c</span>
+#include &lt;openssl/evp.h&gt;
+#include &lt;openssl/rand.h&gt;</pre>
+  </div>
+  <div class="footer">
+    <span>UNAM - Facultad de Ingeniería | Prof. Ing. Carlos Alberto Román Zamitiz</span>
+    <div class="controls"><span class="page-num"></span><button onclick="prevSlide()">◀ Anterior</button><button onclick="nextSlide()">Siguiente ▶</button></div>
+  </div>
+</div>
+
+<!-- DIAPOSITIVA 6: ENTROPIA Y ARCHIVO LLAVE.KEY -->
+<div class="slide">
+  <div class="header">
+    <h2>5. Entropía CSPRNG y Descarga de Llave a Archivo (<code>llave.key</code>)</h2>
+    <span class="badge">Persistencia Binaria (Min 35-45)</span>
+  </div>
+  <div class="content">
+    <ul>
+      <li><code>RAND_bytes()</code> extrae entropía del kernel del sistema operativo para poblar <code>llave[32]</code> e <code>iv[16]</code> con bytes impredecibles.</li>
+      <li><strong>Descarga a disco (<code>llave.key</code>):</strong> Se abre en modo <strong>escritura binaria (<code>"wb"</code>)</strong> porque los 32 bytes crudos pueden contener el byte <code>0x00</code> (nulo) o <code>0x0A</code> (salto de línea). El modo texto corrompería la llave.</li>
+    </ul>
+    <pre><span class="hl-gold">// Generar bytes aleatorios seguros para la llave (32B) y el IV (16B)</span>
+if (!RAND_bytes(llave, sizeof(llave)) || !RAND_bytes(iv, sizeof(iv))) {
+    manejarErrores();
+}
+<span class="hl-gold">// Guardar la llave generada en un archivo binario "llave.key"</span>
+FILE *archivoLlave = fopen(<span class="hl-green">"llave.key"</span>, <span class="hl-green">"wb"</span>);
+fwrite(llave, 1, sizeof(llave), archivoLlave);
+fclose(archivoLlave);</pre>
+  </div>
+  <div class="footer">
+    <span>UNAM - Facultad de Ingeniería | Prof. Ing. Carlos Alberto Román Zamitiz</span>
+    <div class="controls"><span class="page-num"></span><button onclick="prevSlide()">◀ Anterior</button><button onclick="nextSlide()">Siguiente ▶</button></div>
+  </div>
+</div>
+
+<!-- DIAPOSITIVA 7: PROCESO DE ENCRIPTACION -->
+<div class="slide">
+  <div class="header">
+    <h2>6. Máquina de Estados EVP: Proceso de Encriptación</h2>
+    <span class="badge">Análisis de Código (Min 35-45)</span>
+  </div>
+  <div class="content">
+    <ul>
+      <li><strong>1. Creación del contexto (<code>EVP_CIPHER_CTX_new</code>):</strong> Reserva una estructura opaca <code>ctx</code> en el <em>Heap</em>.</li>
+      <li><strong>2. Inicialización (<code>EVP_EncryptInit_ex</code>):</strong> Carga el motor <code>EVP_aes_256_cbc()</code>, la <code>llave</code> y el <code>iv</code>.</li>
+      <li><strong>3. Cifrado de bloques (<code>EVP_EncryptUpdate</code>):</strong> Cifra el mensaje y guarda los bytes escritos en <code>longitudPaso</code>.</li>
+      <li><strong>4. Cierre y Padding (<code>EVP_EncryptFinal_ex</code>):</strong> Usa aritmética de punteros (<code>textoEncriptado + longitudPaso</code>) para concatenar el bloque final de relleno.</li>
+    </ul>
+    <pre>EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
+EVP_EncryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, llave, iv);
+EVP_EncryptUpdate(ctx, textoEncriptado, &amp;longitudPaso, textoOriginal, longitudTextoOriginal);
+longitudTextoEncriptado = longitudPaso;
+EVP_EncryptFinal_ex(ctx, <span class="hl-gold">textoEncriptado + longitudPaso</span>, &amp;longitudPaso);
+longitudTextoEncriptado += longitudPaso;</pre>
+  </div>
+  <div class="footer">
+    <span>UNAM - Facultad de Ingeniería | Prof. Ing. Carlos Alberto Román Zamitiz</span>
+    <div class="controls"><span class="page-num"></span><button onclick="prevSlide()">◀ Anterior</button><button onclick="nextSlide()">Siguiente ▶</button></div>
+  </div>
+</div>
+
+<!-- DIAPOSITIVA 8: PROCESO DE DESENCRIPTACION -->
+<div class="slide">
+  <div class="header">
+    <h2>7. Máquina de Estados EVP: Desencriptación y Limpieza</h2>
+    <span class="badge">Análisis de Código (Min 35-45)</span>
+  </div>
+  <div class="content">
+    <ul>
+      <li><strong>Reinicio del contexto (<code>EVP_DecryptInit_ex</code>):</strong> Configura la operación inversa con la misma <code>llave</code> y el mismo <code>iv</code>.</li>
+      <li><strong>Validación de integridad en <code>EVP_DecryptFinal_ex</code>:</strong> Verifica y retira el <em>padding</em>. Si el texto cifrado o la llave fueron alterados, devuelve distinto de <code>1</code> y ejecuta <code>manejarErrores()</code>.</li>
+      <li><strong>Terminador nulo y liberación:</strong> Se agrega <code>'\0'</code> al final para imprimir con <code>%s</code> y se libera el <em>Heap</em> con <code>EVP_CIPHER_CTX_free(ctx)</code>.</li>
+    </ul>
+    <pre>EVP_DecryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, llave, iv);
+EVP_DecryptUpdate(ctx, textoDesencriptado, &amp;longitudPaso, textoEncriptado, longitudTextoEncriptado);
+longitudTextoDesencriptado = longitudPaso;
+EVP_DecryptFinal_ex(ctx, textoDesencriptado + longitudPaso, &amp;longitudPaso);
+longitudTextoDesencriptado += longitudPaso;
+<span class="hl-gold">textoDesencriptado[longitudTextoDesencriptado] = '\0';</span>
+EVP_CIPHER_CTX_free(ctx);</pre>
+  </div>
+  <div class="footer">
+    <span>UNAM - Facultad de Ingeniería | Prof. Ing. Carlos Alberto Román Zamitiz</span>
+    <div class="controls"><span class="page-num"></span><button onclick="prevSlide()">◀ Anterior</button><button onclick="nextSlide()">Siguiente ▶</button></div>
+  </div>
+</div>
+
+<!-- DIAPOSITIVA 9: PRACTICA EN LABORATORIO -->
+<div class="slide">
+  <div class="header">
+    <h2>8. Práctica Guiada: Compilación y Verificación Forense</h2>
+    <span class="badge">Laboratorio Linux (Min 45-60)</span>
+  </div>
+  <div class="content">
+    <ul>
+      <li><strong>Paso 1:</strong> Compilar <code>cripto.c</code> indicando al enlazador (<em>linker</em>) que vincule la biblioteca <code>libcrypto</code> mediante la bandera <code>-lcrypto</code>.</li>
+      <li><strong>Paso 2:</strong> Ejecutar el binario pasando como argumento entre comillas la cadena a cifrar.</li>
+      <li><strong>Paso 3:</strong> Comprobar que el archivo <code>llave.key</code> tiene exactamente <strong>32 bytes (256 bits)</strong> e inspeccionar sus bytes hexadecimales.</li>
+    </ul>
+    <pre><span class="hl-gold"># 1. Compilación enlazando libcrypto de OpenSSL</span>
+$ gcc -Wall cripto.c -o cripto -lcrypto
+
+<span class="hl-gold"># 2. Ejecución del programa</span>
+$ ./cripto "Mensaje confidencial para la arquitectura Cliente-Servidor"
+
+<span class="hl-gold"># 3. Inspección forense de la llave generada en disco</span>
+$ ls -l llave.key
+$ hexdump -C llave.key</pre>
+  </div>
+  <div class="footer">
+    <span>UNAM - Facultad de Ingeniería | Prof. Ing. Carlos Alberto Román Zamitiz</span>
+    <div class="controls"><span class="page-num"></span><button onclick="prevSlide()">◀ Anterior</button><button onclick="nextSlide()">Siguiente ▶</button></div>
+  </div>
+</div>
+
+<!-- DIAPOSITIVA 10: REFERENCIAS -->
+<div class="slide">
+  <div class="header">
+    <h2>9. Referencias Bibliográficas Reales y Siguiente Sesión</h2>
+    <span class="badge">Cierre de Sesión</span>
+  </div>
+  <div class="content">
+    <ul>
+      <li><strong>NIST FIPS PUB 197 (2023):</strong> <em>Advanced Encryption Standard (AES)</em>. U.S. Department of Commerce. (https://csrc.nist.gov/publications/detail/fips/197/final)</li>
+      <li><strong>NIST SP 800-38A (2001):</strong> <em>Recommendation for Block Cipher Modes of Operation: Methods and Techniques (CBC &amp; IV)</em>.</li>
+      <li><strong>UIT-T Recomendación X.800 (1991):</strong> <em>Arquitectura de seguridad para la interconexión de sistemas abiertos</em>.</li>
+      <li><strong>The OpenSSL Project (2024):</strong> <em>Official Manpages — EVP_EncryptInit(3), RAND_bytes(3)</em>. (https://docs.openssl.org/)</li>
+      <li><strong>Stallings, W. (2017):</strong> <em>Cryptography and Network Security: Principles and Practice</em> (7th ed.). Pearson Education.</li>
+    </ul>
+    <pre><span class="hl-gold">Próxima Sesión Práctica:</span>
+Integración de cripto.c y lectura de 'llave.key' en un par de programas Cliente-Servidor sobre Sockets TCP.</pre>
+  </div>
+  <div class="footer">
+    <span>UNAM - Facultad de Ingeniería | Prof. Ing. Carlos Alberto Román Zamitiz</span>
+    <div class="controls"><span class="page-num"></span><button onclick="prevSlide()">◀ Anterior</button><button onclick="nextSlide()">Siguiente ▶</button></div>
+  </div>
+</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  function updateSlides() {
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === current);
+      const pn = s.querySelector('.page-num');
+      if (pn) pn.textContent = `Diapositiva ${i + 1} de ${slides.length} `;
+    });
+  }
+  function nextSlide() { if (current < slides.length - 1) { current++; updateSlides(); } }
+  function prevSlide() { if (current > 0) { current--; updateSlides(); } }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  });
+  updateSlides();
+</script>
+</body>
+</html>
