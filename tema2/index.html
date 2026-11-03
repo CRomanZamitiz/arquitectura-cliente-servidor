@@ -38,20 +38,20 @@
     <div class="course-card">
         <h2>📚 Material Teórico</h2>
         <ul>
-            <li><a href="01_Estados_de_procesos.pdf">Notas del Tema 2: Estados de procesos</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="01_Estados_de_procesos.pdf" target="_blank">Notas del Tema 2: Estados de procesos</a> <span class="tag tag-pdf">PDF</span></li>
         </ul>
     </div>
 
     <div class="course-card">
         <h2>💻 Códigos: Función wait()</h2>
         <ul>
-            <li class="icon-img"><a href="fork-exec.png">Gráfico: fork(), exec() y wait()</a>
+            <li class="icon-img"><a href="fork-exec.png" target="_blank">Gráfico: fork(), exec() y wait()</a>
                 <span class="description">Muestra gráficamente el comportamiento de estas funciones.</span></li>
-            <li class="icon-code"><a href="programa01_wait1.c">programa01_wait1.c</a> <span class="tag tag-c">C</span>
+            <li class="icon-code"><a href="programa01_wait1.c" target="_blank">programa01_wait1.c</a> <span class="tag tag-c">C</span>
                 <span class="description">El proceso padre espera al hijo (dormido 10s) con wait(&estatus) utilizando macros WIFEXITED y WEXITSTATUS.</span></li>
-            <li class="icon-code"><a href="programa02_wait2.c">programa02_wait2.c</a> <span class="tag tag-c">C</span>
+            <li class="icon-code"><a href="programa02_wait2.c" target="_blank">programa02_wait2.c</a> <span class="tag tag-c">C</span>
                 <span class="description">Similar a wait1, pero el proceso padre crea 2 hijos.</span></li>
-            <li class="icon-code"><a href="programa03_fork-exec-wait.c">programa03_fork-exec-wait.c</a> <span class="tag tag-c">C</span>
+            <li class="icon-code"><a href="programa03_fork-exec-wait.c" target="_blank">programa03_fork-exec-wait.c</a> <span class="tag tag-c">C</span>
                 <span class="description">El padre espera a que el hijo termine la ejecución de "ls -l /".</span></li>
         </ul>
     </div>
@@ -59,14 +59,14 @@
     <div class="course-card">
         <h2>💻 Códigos: Señales</h2>
         <ul>
-            <li class="icon-img"><a href="senales.png">Gráfico: 3 Casos de Señales</a></li>
-            <li class="icon-code"><a href="programa04_signal_caso1.c">programa04_signal_caso1.c</a> <span class="tag tag-c">C</span>
+            <li class="icon-img"><a href="senales.png" target="_blank">Gráfico: 3 Casos de Señales</a></li>
+            <li class="icon-code"><a href="programa04_signal_caso1.c" target="_blank">programa04_signal_caso1.c</a> <span class="tag tag-c">C</span>
                 <span class="description">Caso 1: Ignorar la señal con signal(SIGINT, SIG_IGN).</span></li>
-            <li class="icon-code"><a href="programa05_signal_caso2_v1.c">programa05_signal_caso2_v1.c</a> <span class="tag tag-c">C</span>
+            <li class="icon-code"><a href="programa05_signal_caso2_v1.c" target="_blank">programa05_signal_caso2_v1.c</a> <span class="tag tag-c">C</span>
                 <span class="description">Caso 2 (v1): Manejar la señal con tratamiento propio; el proceso continúa.</span></li>
-            <li class="icon-code"><a href="programa05_signal_caso2_v2.c">programa05_signal_caso2_v2.c</a> <span class="tag tag-c">C</span>
+            <li class="icon-code"><a href="programa05_signal_caso2_v2.c" target="_blank">programa05_signal_caso2_v2.c</a> <span class="tag tag-c">C</span>
                 <span class="description">Caso 2 (v2): Manejar la señal con tratamiento propio y terminar el proceso.</span></li>
-            <li class="icon-code"><a href="programa06_signal_caso3.c">programa06_signal_caso3.c</a> <span class="tag tag-c">C</span>
+            <li class="icon-code"><a href="programa06_signal_caso3.c" target="_blank">programa06_signal_caso3.c</a> <span class="tag tag-c">C</span>
                 <span class="description">Caso 3: Señales que no se pueden ignorar ni manejar (ej. SIGKILL).</span></li>
         </ul>
     </div>
@@ -74,13 +74,13 @@
     <div class="course-card">
         <h2>💻 Códigos: Procesos en Background y Zombies</h2>
         <ul>
-            <li class="icon-code"><a href="programa07_background.c">programa07_background.c</a> <span class="tag tag-c">C</span>
+            <li class="icon-code"><a href="programa07_background.c" target="_blank">programa07_background.c</a> <span class="tag tag-c">C</span>
                 <span class="description">Simula procesamiento para probar el envío a background con Ctrl+Z, el comando bg o utilizando &.</span></li>
-            <li class="icon-code"><a href="programa08_zombie.c">programa08_zombie.c</a> <span class="tag tag-c">C</span>
+            <li class="icon-code"><a href="programa08_zombie.c" target="_blank">programa08_zombie.c</a> <span class="tag tag-c">C</span>
                 <span class="description">Genera un proceso zombie durante 60 segundos debido a la encolación de SIGCHLD.</span></li>
-            <li class="icon-code"><a href="programa09_nozombie_v1.c">programa09_nozombie_v1.c</a> <span class="tag tag-c">C</span>
+            <li class="icon-code"><a href="programa09_nozombie_v1.c" target="_blank">programa09_nozombie_v1.c</a> <span class="tag tag-c">C</span>
                 <span class="description">Solución 1 a procesos zombie: Ignorar la señal SIGCHLD o SIGCLD.</span></li>
-            <li class="icon-code"><a href="programa09_nozombie_v2.c">programa09_nozombie_v2.c</a> <span class="tag tag-c">C</span>
+            <li class="icon-code"><a href="programa09_nozombie_v2.c" target="_blank">programa09_nozombie_v2.c</a> <span class="tag tag-c">C</span>
                 <span class="description">Solución 2 a procesos zombie: Implementar una función manejadora de señales para SIGCHLD.</span></li>
         </ul>
     </div>
@@ -88,13 +88,13 @@
     <div class="course-card">
         <h2>💻 Códigos: Señal SIGKILL, kill() y abort()</h2>
         <ul>
-            <li class="icon-code"><a href="programa10_SIGKILL.c">programa10_SIGKILL.c</a> <span class="tag tag-c">C</span>
+            <li class="icon-code"><a href="programa10_SIGKILL.c" target="_blank">programa10_SIGKILL.c</a> <span class="tag tag-c">C</span>
                 <span class="description">Ejercicio para probar el envío de señales desde terminal con kill -SIGXXX PID.</span></li>
-            <li class="icon-code"><a href="programa11_kill1.c">programa11_kill1.c</a> <span class="tag tag-c">C</span>
+            <li class="icon-code"><a href="programa11_kill1.c" target="_blank">programa11_kill1.c</a> <span class="tag tag-c">C</span>
                 <span class="description">El padre termina fulminantemente al hijo utilizando kill(pid, SIGKILL).</span></li>
-            <li class="icon-code"><a href="programa12_kill2.c">programa12_kill2.c</a> <span class="tag tag-c">C</span>
+            <li class="icon-code"><a href="programa12_kill2.c" target="_blank">programa12_kill2.c</a> <span class="tag tag-c">C</span>
                 <span class="description">Se crean 2 hijos; el padre elimina al hijo 2 y luego llama a exit(0).</span></li>
-            <li class="icon-code"><a href="programa13_abort.c">programa13_abort.c</a> <span class="tag tag-c">C</span>
+            <li class="icon-code"><a href="programa13_abort.c" target="_blank">programa13_abort.c</a> <span class="tag tag-c">C</span>
                 <span class="description">Uso de la función abort() para enviar la señal SIGABRT al propio proceso.</span></li>
         </ul>
     </div>
