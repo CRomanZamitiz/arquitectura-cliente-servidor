@@ -40,78 +40,19 @@
     </header>
 
     <div class="course-card">
-        <h2>📚 Material Teórico</h2>
+          <h2>📚 Teoría de Criptografía</h2>
         <ul>
-            <li><a href="Tema_04.pdf">Notas de sockets en lenguaje Java (Clases ServerSocket y Socket)</a> <span class="tag tag-pdf">PDF</span></li>
-            <li><a href="flujos.pdf">Funciones para el manejo de flujos de socket</a> <span class="tag tag-pdf">PDF</span></li>
+            <li class="icon-link"><a href="presentacion_cripto_unam.html" target="_blank">Criptografía Simétrica en C con OpenSSL</a></li>
         </ul>
     </div>
 
     <div class="course-card">
-        <h2>💻 Códigos: Comunicación Básica</h2>
+        <h2>💻 Códigos</h2>
         <ul>
-            <li class="icon-code"><a href="Servidor01.java">Servidor01.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Uso de <code>ServerSocket</code> y <code>Socket</code> manejando cadenas con <code>readUTF()</code> y <code>writeUTF()</code>.</span></li>
-            <li class="icon-code"><a href="Cliente01.java">Cliente01.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Cliente básico que interactúa con los flujos de entrada y salida del servidor.</span></li>
-            <li class="icon-code"><a href="Servidor02.java">Servidor02.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Lectura dinámica del flujo del teclado utilizando <code>BufferedReader</code>.</span></li>
-            <li class="icon-code"><a href="Cliente02.java">Cliente02.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Lee el mensaje del teclado para enviarlo al servidor y espera su respuesta.</span></li>
+            <li class="icon-code"><a href="cripto.c">cripto.c</a> <span class="tag tag-c">C</span>
+                <span class="description">Encriptación simétrica de una frase pasada desde línea de argumentos.</span></li>
         </ul>
     </div>
 
-    <div class="course-card">
-        <h2>💻 Códigos: Conversación Cíclica</h2>
-        <ul>
-            <li class="icon-code"><a href="Servidor03.java">Servidor03.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Modificación del Servidor02. Mantiene la conversación en ciclo hasta que el cliente envía "salir".</span></li>
-            <li class="icon-code"><a href="Cliente03.java">Cliente03.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Mantiene la conversación activa hasta escribir la palabra clave "salir".</span></li>
-        </ul>
-    </div>
-
-    <div class="course-card">
-        <h2>💻 Códigos: Servidores Concurrentes (Multithreading)</h2>
-        <div class="note">
-            <strong>Consideraciones de diseño para ServidorMultiThread.java:</strong>
-            <ul style="margin-top: 0.5rem; margin-bottom: 0;">
-                <li>La clase hereda de <code>Thread</code>, por lo que cada instancia es un hilo.</li>
-                <li>La creación de cada objeto hilo se realiza después de la llamada a <code>accept()</code>.</li>
-                <li>La clase posee un método <code>run()</code> con la lógica concurrente.</li>
-                <li><code>ServerSocket</code> y <code>Socket</code> pasan a ser variables al nivel de la clase.</li>
-                <li><code>ServerSocket</code> es estática (mismo valor para todos los hilos).</li>
-                <li><code>Socket</code> es de instancia (valor independiente para cada hilo).</li>
-            </ul>
-        </div>
-        <ul>
-            <li class="icon-code"><a href="ServidorMultiThread.java">ServidorMultiThread.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Crea un hilo independiente por cada cliente que se conecta (Servidor Concurrente).</span></li>
-            <li class="icon-code"><a href="ClienteMultiThread.java">ClienteMultiThread.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Idéntico a Cliente03. La lógica multihilo recae exclusivamente en el servidor.</span></li>
-        </ul>
-    </div>
-
-    <div class="course-card">
-        <h2>💻 Códigos: Multithreading Avanzado (Clases Auxiliares)</h2>
-        <ul>
-            <li class="icon-code"><a href="ServidorMultiThread2.java">ServidorMultiThread2.java</a> <span class="tag tag-java">Java</span></li>
-            <li class="icon-code"><a href="ServerThread.java">ServerThread.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Clase auxiliar para la gestión de hilos del servidor.</span></li>
-            <li class="icon-code"><a href="ClienteMultiThread2.java">ClienteMultiThread2.java</a> <span class="tag tag-java">Java</span></li>
-            <li class="icon-code"><a href="ClientThread.java">ClientThread.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Clase auxiliar para la gestión de hilos del cliente.</span></li>
-        </ul>
-    </div>
-
-    <div class="course-card">
-        <h2>💻 Códigos: Transferencia de Archivos (FTP)</h2>
-        <ul>
-            <li class="icon-code"><a href="ServidorFTP.java">ServidorFTP.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Servidor de transferencia de archivos (texto y binarios) hacia el cliente.</span></li>
-            <li class="icon-code"><a href="ClienteFTP.java">ClienteFTP.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Recibe y guarda el archivo transferido por el servidor.</span></li>
-        </ul>
-    </div>
 </body>
 </html>
