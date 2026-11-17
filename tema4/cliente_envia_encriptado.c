@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
   int puerto = atoi(argv[2]);
   char *ruta_directorio = argv[3];
 
-  // 1. Leer la llave desde "llave_archivo.key" antes de iniciar el servidor
+  // 1. Leer la llave desde "llave_archivo.key" antes de iniciar el cliente
   unsigned char llave[32];
   FILE *fLlave = fopen("llave_archivo.key", "rb");
   if (!fLlave) {
