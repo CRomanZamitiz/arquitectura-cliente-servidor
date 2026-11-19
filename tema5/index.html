@@ -43,17 +43,17 @@
     <div class="course-card">
         <h2>📚 Material Teórico</h2>
         <ul>
-            <li><a href="Tema-05-Criptografia.pdf">Notas de Criptografía en lenguaje Java</a> <span class="tag tag-pdf">PDF</span></li>
-            <li><a href="Tema-05-Criptografia-Parte-2.pdf">Implementando la criptografía en los sockets</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="Tema-05-Criptografia.pdf" target="_blank">Notas de Criptografía en lenguaje Java</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="Tema-05-Criptografia-Parte-2.pdf" target="_blank">Implementando la criptografía en los sockets</a> <span class="tag tag-pdf">PDF</span></li>
         </ul>
     </div>
 
     <div class="course-card">
         <h2>💻 Códigos: El servidor genera la llave cada vez que se inicia</h2>
         <ul>
-            <li class="icon-code"><a href="ServidorCifrado01.java">ServidorCifrado01.java</a> <span class="tag tag-java">Java</span>
+            <li class="icon-code"><a href="ServidorCifrado01.java" target="_blank">ServidorCifrado01.java</a> <span class="tag tag-java">Java</span>
                 <span class="description">Este servidor genera el objeto Key y lo guarda en un archivo llave.ser para que, posteriormente, el cliente lea el objeto de ese archivo y de esa manera Cliente y Servidor utilicen la misma llave para cifrar/descrifrar. En este caso, el cliente envía un mensaje cifrado y termina. El servidor recibe el mensaje cifrado y lo descifra..</span></li>
-            <li class="icon-code"><a href="ClienteCifrado01.java">ClienteCifrado01.java</a> <span class="tag tag-java">Java</span>
+            <li class="icon-code"><a href="ClienteCifrado01.java" target="_blank">ClienteCifrado01.java</a> <span class="tag tag-java">Java</span>
                 <span class="description">Este es el cliente, lee un mensaje del teclado, lo cifra y lo envía al servidor.</span></li>
         </ul>
     </div>
@@ -61,13 +61,13 @@
     <div class="course-card">
         <h2>💻 Códigos: La llave se genera previamente, para que tanto Cliente como Servidor la utilicen para encriptar y desencriptar</h2>
         <ul>
-            <li class="icon-code"><a href="GeneradorLlave.java">GeneradorLlave.java</a> <span class="tag tag-java">Java</span>
+            <li class="icon-code"><a href="GeneradorLlave.java" target="_blank">GeneradorLlave.java</a> <span class="tag tag-java">Java</span>
                 <span class="description">Este programa debe ejecutarse antes del ServidorCifrado02 porque genera el objeto Key y lo guarda en un archivo llave.ser, de esta manera el Servidor no debe crear la llave cada vez que se ejecuta..</span></li>
             <li class="icon-key"><a href="llave.ser" target="_blank">llave.ser</a>
                 <span class="description">Nuestra llave que utilizarán tanto cliente como servidor para encriptar/desencriptar.</span></li>
-            <li class="icon-code"><a href="ServidorCifrado02.java">ServidorCifrado02.java</a> <span class="tag tag-java">Java</span>
+            <li class="icon-code"><a href="ServidorCifrado02.java" target="_blank">ServidorCifrado02.java</a> <span class="tag tag-java">Java</span>
                 <span class="description">Este servidor recibe el mensaje cifrado del cliente, lo desencripta y muestra en pantalla. Posteriormente cierra la conexión del cliente y se pone en espera de otro cliente. Se termina con Control-C.</span></li>
-            <li class="icon-code"><a href="ClienteCifrado02.java">ClienteCifrado02.java</a> <span class="tag tag-java">Java</span>
+            <li class="icon-code"><a href="ClienteCifrado02.java" target="_blank">ClienteCifrado02.java</a> <span class="tag tag-java">Java</span>
                 <span class="description">Lee la llave del archivo llave.ser, lee un mensaje del teclado, lo cifra y lo envía al servidor.</span></li>
         </ul>
     </div>
