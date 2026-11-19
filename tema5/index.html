@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tema 5: Sockets en lenguaje Java - Arquitectura Cliente Servidor</title>
+    <title>Tema 5: Sockets Internet cifrados con lenguaje Java - Arquitectura Cliente Servidor</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 950px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; }
         header { background-color: #002b5e; color: white; padding: 2rem; border-radius: 8px; margin-bottom: 2rem; text-align: center; }
@@ -18,6 +18,7 @@
         .icon-task::before { content: '📝'; }
         .icon-img::before { content: '🖼️'; }
         .icon-link::before { content: '🔗'; }
+        .icon-key::before { content: '🔑'; }
         a { color: #0056b3; text-decoration: none; font-weight: 500; }
         a:hover { text-decoration: underline; }
         .tag { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; margin-left: 0.5rem; color: white; font-weight: bold; }
@@ -32,7 +33,7 @@
 </head>
 <body>
     <header>
-        <h1>Tema 5: Sockets en lenguaje Java</h1>
+        <h1>Tema 5: Sockets Internet cifrados con lenguaje Java</h1>
         <p>Arquitectura Cliente Servidor</p>
         <p style="text-align: left;">
             <a href="../index.html" style="color: white; text-decoration: none; font-weight: bold;">&larr; Regresar al inicio</a>
@@ -42,75 +43,32 @@
     <div class="course-card">
         <h2>📚 Material Teórico</h2>
         <ul>
-            <li><a href="Tema_05.pdf">Notas de sockets en lenguaje Java (Clases ServerSocket y Socket)</a> <span class="tag tag-pdf">PDF</span></li>
-            <li><a href="flujos.pdf">Funciones para el manejo de flujos de socket</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="Tema-05-Criptografia.pdf">Notas de Criptografía en lenguaje Java</a> <span class="tag tag-pdf">PDF</span></li>
+            <li><a href="Tema-05-Criptografia-Parte-2.pdf">Implementando la criptografía en los sockets</a> <span class="tag tag-pdf">PDF</span></li>
         </ul>
     </div>
 
     <div class="course-card">
-        <h2>💻 Códigos: Comunicación Básica</h2>
+        <h2>💻 Códigos: El servidor genera la llave cada vez que se inicia</h2>
         <ul>
-            <li class="icon-code"><a href="Servidor01.java">Servidor01.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Uso de <code>ServerSocket</code> y <code>Socket</code> manejando cadenas con <code>readUTF()</code> y <code>writeUTF()</code>.</span></li>
-            <li class="icon-code"><a href="Cliente01.java">Cliente01.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Cliente básico que interactúa con los flujos de entrada y salida del servidor.</span></li>
-            <li class="icon-code"><a href="Servidor02.java">Servidor02.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Lectura dinámica del flujo del teclado utilizando <code>BufferedReader</code>.</span></li>
-            <li class="icon-code"><a href="Cliente02.java">Cliente02.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Lee el mensaje del teclado para enviarlo al servidor y espera su respuesta.</span></li>
+            <li class="icon-code"><a href="ServidorCifrado01.java">ServidorCifrado01.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Este servidor genera el objeto Key y lo guarda en un archivo llave.ser para que, posteriormente, el cliente lea el objeto de ese archivo y de esa manera Cliente y Servidor utilicen la misma llave para cifrar/descrifrar. En este caso, el cliente envía un mensaje cifrado y termina. El servidor recibe el mensaje cifrado y lo descifra..</span></li>
+            <li class="icon-code"><a href="ClienteCifrado01.java">ClienteCifrado01.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Este es el cliente, lee un mensaje del teclado, lo cifra y lo envía al servidor.</span></li>
         </ul>
     </div>
 
     <div class="course-card">
-        <h2>💻 Códigos: Conversación Cíclica</h2>
+        <h2>💻 Códigos: La llave se genera previamente, para que tanto Cliente como Servidor la utilicen para encriptar y desencriptar</h2>
         <ul>
-            <li class="icon-code"><a href="Servidor03.java">Servidor03.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Modificación del Servidor02. Mantiene la conversación en ciclo hasta que el cliente envía "salir".</span></li>
-            <li class="icon-code"><a href="Cliente03.java">Cliente03.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Mantiene la conversación activa hasta escribir la palabra clave "salir".</span></li>
-        </ul>
-    </div>
-
-    <div class="course-card">
-        <h2>💻 Códigos: Servidores Concurrentes (Multithreading)</h2>
-        <div class="note">
-            <strong>Consideraciones de diseño para ServidorMultiThread.java:</strong>
-            <ul style="margin-top: 0.5rem; margin-bottom: 0;">
-                <li>La clase hereda de <code>Thread</code>, por lo que cada instancia es un hilo.</li>
-                <li>La creación de cada objeto hilo se realiza después de la llamada a <code>accept()</code>.</li>
-                <li>La clase posee un método <code>run()</code> con la lógica concurrente.</li>
-                <li><code>ServerSocket</code> y <code>Socket</code> pasan a ser variables al nivel de la clase.</li>
-                <li><code>ServerSocket</code> es estática (mismo valor para todos los hilos).</li>
-                <li><code>Socket</code> es de instancia (valor independiente para cada hilo).</li>
-            </ul>
-        </div>
-        <ul>
-            <li class="icon-code"><a href="ServidorMultiThread.java">ServidorMultiThread.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Crea un hilo independiente por cada cliente que se conecta (Servidor Concurrente).</span></li>
-            <li class="icon-code"><a href="ClienteMultiThread.java">ClienteMultiThread.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Idéntico a Cliente03. La lógica multihilo recae exclusivamente en el servidor.</span></li>
-        </ul>
-    </div>
-
-    <div class="course-card">
-        <h2>💻 Códigos: Multithreading Avanzado (Clases Auxiliares)</h2>
-        <ul>
-            <li class="icon-code"><a href="ServidorMultiThread2.java">ServidorMultiThread2.java</a> <span class="tag tag-java">Java</span></li>
-            <li class="icon-code"><a href="ServerThread.java">ServerThread.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Clase auxiliar para la gestión de hilos del servidor.</span></li>
-            <li class="icon-code"><a href="ClienteMultiThread2.java">ClienteMultiThread2.java</a> <span class="tag tag-java">Java</span></li>
-            <li class="icon-code"><a href="ClientThread.java">ClientThread.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Clase auxiliar para la gestión de hilos del cliente.</span></li>
-        </ul>
-    </div>
-
-    <div class="course-card">
-        <h2>💻 Códigos: Transferencia de Archivos (FTP)</h2>
-        <ul>
-            <li class="icon-code"><a href="ServidorFTP.java">ServidorFTP.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Servidor de transferencia de archivos (texto y binarios) hacia el cliente.</span></li>
-            <li class="icon-code"><a href="ClienteFTP.java">ClienteFTP.java</a> <span class="tag tag-java">Java</span>
-                <span class="description">Recibe y guarda el archivo transferido por el servidor.</span></li>
+            <li class="icon-code"><a href="GeneradorLlave.java">GeneradorLlave.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Este programa debe ejecutarse antes del ServidorCifrado02 porque genera el objeto Key y lo guarda en un archivo llave.ser, de esta manera el Servidor no debe crear la llave cada vez que se ejecuta..</span></li>
+            <li class="icon-key"><a href="llave.key" target="_blank">llave.key</a>
+                <span class="description">Nuestra llave que utilizarán tanto cliente como servidor para encriptar/desencriptar.</span></li>
+            <li class="icon-code"><a href="ServidorCifrado02.java">ServidorCifrado02.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Este servidor recibe el mensaje cifrado del cliente, lo desencripta y muestra en pantalla. Posteriormente cierra la conexión del cliente y se pone en espera de otro cliente. Se termina con Control-C.</span></li>
+            <li class="icon-code"><a href="ClienteCifrado02.java">ClienteCifrado02.java</a> <span class="tag tag-java">Java</span>
+                <span class="description">Lee la llave del archivo llave.ser, lee un mensaje del teclado, lo cifra y lo envía al servidor.</span></li>
         </ul>
     </div>
 </body>
